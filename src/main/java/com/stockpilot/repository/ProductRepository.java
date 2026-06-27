@@ -1,5 +1,7 @@
 package com.stockpilot.repository;
 
-public class ProductRepository {
-    
+import com.stockpilot.model.Product;
+
+public interface ProductRepository
+        extends Repository<Product, Long> {
 }
