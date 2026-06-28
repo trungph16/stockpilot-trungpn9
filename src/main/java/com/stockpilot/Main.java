@@ -4,39 +4,39 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.stockpilot.exception.ProductNotFoundException;
 import com.stockpilot.model.Product;
+import com.stockpilot.model.Customer;
 import com.stockpilot.repository.ProductRepository;
 import com.stockpilot.repository.ProductRepositoryJdbc;
-import com.stockpilot.repository.Repository;
-import com.stockpilot.util.DatabaseInitializer;
-import com.stockpilot.util.ValidationUtils;
+import com.stockpilot.repository.CustomerRepository;
+import com.stockpilot.repository.CustomerRepositoryJdbc;
+
 
 public class Main {
 
     public static void main(String[] args) {
         
-        ProductRepository repository = new ProductRepositoryJdbc();
+        CustomerRepository repository = new CustomerRepositoryJdbc();
 
-        Product product =
-                new Product(
+        Customer customer =
+                new Customer(
                         null,
-                        "ABC-1001",
-                        "Laptop",
-                        "Electronics",
-                        new BigDecimal("1500"),
-                        10
+                        "A",
+                        "a@gmail.com",
+                        "0123456789"
                 );
 
-        List<Product> products = new ArrayList<>();
-        
-        repository.deleteById(1l);
-        products = repository.findAll();
-        
-        for (Product p : products) {
-            System.out.println(p.getId());
-        }
+        repository.save(customer);
+        repository.save(customer);
+        repository.save(customer);
 
-        System.out.println();
+        List<Customer> customers = new ArrayList<>();
+        
+        // repository.deleteById(1l);
+        customers = repository.findAll();
+        
+        for (Customer c : customers) {
+            System.out.println(c.getEmail());
+        }
     }
 }

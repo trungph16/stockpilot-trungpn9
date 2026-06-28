@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.stockpilot.exception.DataAccessException;
-import com.stockpilot.exception.ProductNotFoundException;
+import com.stockpilot.exception.NotFoundException;
 import com.stockpilot.model.Product;
 import com.stockpilot.util.DBConnection;
 
@@ -101,7 +101,7 @@ public class ProductRepositoryJdbc implements ProductRepository {
         }
 
         return products;
-    };
+    }
 
     @Override
     public Optional<Product> findById(Long id) {
@@ -139,10 +139,11 @@ public class ProductRepositoryJdbc implements ProductRepository {
         }
 
         return Optional.empty();
-    };
+    }
 
     @Override
     public Product update(Product product) {
+
         String sql = 
                 """
                     UPDATE products
@@ -169,7 +170,7 @@ public class ProductRepositoryJdbc implements ProductRepository {
             int rowAffected = statement.executeUpdate();
 
             if (rowAffected == 0) {
-                throw new ProductNotFoundException(
+                throw new NotFoundException(
                     "Product not found with id: " + product.getId()
                 );
             }
@@ -181,7 +182,7 @@ public class ProductRepositoryJdbc implements ProductRepository {
                     e
             );
         }
-    };
+    }
 
     @Override
     public void deleteById(Long id) {
@@ -196,7 +197,7 @@ public class ProductRepositoryJdbc implements ProductRepository {
             int rowAffected = statement.executeUpdate();
 
             if (rowAffected == 0) {
-                throw new ProductNotFoundException(
+                throw new NotFoundException(
                     "Product not found with id: " + id
                 );
             }
@@ -207,5 +208,5 @@ public class ProductRepositoryJdbc implements ProductRepository {
                     e
             );
         }
-    };
+    }
 }
